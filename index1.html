@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sand Dollar Impact Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+  <div class="container mx-auto">
+    <h1 class="text-3xl font-bold text-center mb-4">Sand Dollar Impact Dashboard (2020–2024)</h1>
+    <p class="text-center text-gray-600 mb-8">Visualizing the impact of The Bahamas' CBDC on monetary policy, financial stability, and cross-border payments.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Chart 1: Money Supply (M2) -->
+      <div class="bg-white p-4 rounded-lg shadow">
+        <canvas id="m2Chart"></canvas>
+      </div>
+      <!-- Chart 2: Interest Rates -->
+      <div class="bg-white p-4 rounded-lg shadow">
+        <canvas id="interestRatesChart"></canvas>
+      </div>
+      <!-- Chart 3: Bank Deposits vs. Sand Dollar -->
+      <div class="bg-white p-4 rounded-lg shadow">
+        <canvas id="depositsVsSandDollarChart"></canvas>
+      </div>
+      <!-- Chart 4: Financial Stability Indicators -->
+      <div class="bg-white p-4 rounded-lg shadow">
+        <canvas id="stabilityChart"></canvas>
+      </div>
+      <!-- Chart 5: Cross-Border Transactions vs. Sand Dollar -->
+      <div class="bg-white p-4 rounded-lg shadow">
+        <canvas id="crossBorderChart"></canvas>
+      </div>
+      <!-- Chart 6: Remittances and Reserves -->
+      <div class="bg-white p-4 rounded-lg shadow">
+        <canvas id="remittancesReservesChart"></canvas>
+      </div>
+    </div>
+  </div>
+  <script>
+    const years = [2020, 2021, 2022, 2023, 2024];
+
+    // Chart 1: Money Supply (M2)
+    new Chart(document.getElementById('m2Chart'), {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [{
+          label: 'M2 (BSD Billion)',
+          data: [8.1, 8.4, 8.7, 9.0, 9.3],
+          borderColor: '#4CAF50',
+          backgroundColor: 'rgba(76, 175, 80, 0.2)',
+          fill: true
+        }]
+      },
+      options: {
+        plugins: { title: { display: true, text: 'Money Supply (M2)' } },
+        scales: { y: { beginAtZero: false, title: { display: true, text: 'BSD Billion' } }, x: { title: { display: true, text: 'Year' } } }
+      }
+    });
+
+    // Chart 2: Interest Rates
+    new Chart(document.getElementById('interestRatesChart'), {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [
+          { label: 'Lending Rate (%)', data: [5.8, 5.85, 5.9, 5.88, 5.91], borderColor: '#2196F3', fill: false },
+          { label: 'Deposit Rate (%)', data: [0.7, 0.68, 0.67, 0.66, 0.66], borderColor: '#FF9800', fill: false }
+        ]
+      },
+      options: {
+        plugins: { title: { display: true, text: 'Interest Rates' } },
+        scales: { y: { beginAtZero: false, title: { display: true, text: 'Rate (%)' } }, x: { title: { display: true, text: 'Year' } } }
+      }
+    });
+
+    // Chart 3: Bank Deposits vs. Sand Dollar
+    new Chart(document.getElementById('depositsVsSandDollarChart'), {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [
+          { label: 'Bank Deposits (BSD Billion)', data: [7.8, 8.0, 8.3, 8.6, 8.9], borderColor: '#3F51B5', fill: false, yAxisID: 'y1' },
+          { label: 'Sand Dollar (BSD Million)', data: [0.1, 0.5, 1.0, 1.3, 2.0], borderColor: '#F44336', fill: false, yAxisID: 'y2' }
+        ]
+      },
+      options: {
+        plugins: { title: { display: true, text: 'Bank Deposits vs. Sand Dollar Circulation' } },
+        scales: {
+          y1: { position: 'left', title: { display: true, text: 'BSD Billion' } },
+          y2: { position: 'right', title: { display: true, text: 'BSD Million' } },
+          x: { title: { display: true, text: 'Year' } }
+        }
+      }
+    });
+
+    // Chart 4: Financial Stability Indicators
+    new Chart(document.getElementById('stabilityChart'), {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [
+          { label: 'Non-Performing Loans (%)', data: [5.2, 5.0, 4.9, 4.8, 4.7], borderColor: '#009688', fill: false },
+          { label: 'Liquidity (% of Assets)', data: [29.5, 29.8, 30.2, 30.7, 31.0], borderColor: '#9C27B0', fill: false }
+        ]
+      },
+      options: {
+        plugins: { title: { display: true, text: 'Financial Stability Indicators' } },
+        scales: { y: { beginAtZero: false, title: { display: true, text: 'Percentage (%)' } }, x: { title: { display: true, text: 'Year' } } }
+      }
+    });
+
+    // Chart 5: Cross-Border Transactions vs. Sand Dollar
+    new Chart(document.getElementById('crossBorderChart'), {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [
+          { label: 'Sand Dollar Circulation (BSD Million)', data: [0.1, 0.5, 1.0, 1.3, 2.0], borderColor: '#F44336', fill: false },
+          { label: 'Cross-Border Transactions (BSD Million)', data: [0.01, 0.03, 0.05, 0.1, 0.15], borderColor: '#FFC107', fill: false }
+        ]
+      },
+      options: {
+        plugins: { title: { display: true, text: 'Cross-Border Transactions vs. Sand Dollar' } },
+        scales: { y: { beginAtZero: false, title: { display: true, text: 'BSD Million' } }, x: { title: { display: true, text: 'Year' } } }
+      }
+    });
+
+    // Chart 6: Remittances and Reserves
+    new Chart(document.getElementById('remittancesReservesChart'), {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [
+          { label: 'Remittances (BSD Million)', data: [280, 290, 295, 300, 310], borderColor: '#4CAF50', fill: false, yAxisID: 'y1' },
+          { label: 'Reserves (BSD Billion)', data: [2.5, 2.6, 2.7, 2.75, 2.8], borderColor: '#2196F3', fill: false, yAxisID: 'y2' }
+        ]
+      },
+      options: {
+        plugins: { title: { display: true, text: 'Remittances and Foreign Exchange Reserves' } },
+        scales: {
+          y1: { position: 'left', title: { display: true, text: 'BSD Million' } },
+          y2: { position: 'right', title: { display: true, text: 'BSD Billion' } },
+          x: { title: { display: true, text: 'Year' } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
